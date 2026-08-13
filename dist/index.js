@@ -1,6 +1,15 @@
 const textplaceholder = document.querySelector('#inputText');
 const button = document.querySelector('#buttonTask');
 const lists = document.querySelector('#list');
+window.addEventListener("load", () => {
+    const saved = localStorage.getItem("tasks");
+    if (saved) {
+        lists.innerHTML = saved;
+    }
+});
+function saveTasks() {
+    localStorage.setItem("tasks", lists.innerHTML);
+}
 button.addEventListener("click", () => {
     const newText = textplaceholder.value;
     if (newText === "")
@@ -15,6 +24,7 @@ button.addEventListener("click", () => {
     item.appendChild(donebutton);
     lists.appendChild(item);
     textplaceholder.value = "";
+    saveTasks();
 });
 export {};
 //# sourceMappingURL=index.js.map
