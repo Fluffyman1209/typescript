@@ -12,6 +12,15 @@ window.addEventListener("load", () => {
 function saveTasks() {
   localStorage.setItem("tasks", lists.innerHTML);
 }
+
+const clearButton = document.createElement("button");
+clearButton.textContent = "Clear All";
+clearButton.addEventListener("click", () => {
+    lists.innerHTML = "";             
+    localStorage.removeItem("tasks");  
+});
+
+document.body.appendChild(clearButton);
 button.addEventListener("click",() => 
     {
         const newText = textplaceholder.value;
@@ -22,9 +31,20 @@ button.addEventListener("click",() =>
         donebutton.textContent = "Done";
         donebutton.addEventListener("click", () => {
             item.style.color = "green";
+            saveTasks();
         });
+
+        const editbutton = document.createElement("button");
+        editbutton.textContent = "edit";
+        editbutton.addEventListener("click", () => {
+            item.firstChild!.textContent = prompt("Edit task:", item.firstChild?.textContent || "");
+            saveTasks();
+        }
+        )
+
         item.appendChild(donebutton);
         lists.appendChild(item);
+        item.appendChild(editbutton);
         textplaceholder.value = "";
 
         saveTasks();
